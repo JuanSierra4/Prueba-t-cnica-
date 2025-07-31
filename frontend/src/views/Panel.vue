@@ -51,9 +51,9 @@
 
 <script setup>
 import { ref } from 'vue'
-import Clientes from '@/views/Clientes.vue'
-import Productos from '@/views/Productos.vue'
-import Facturas from '@/views/Facturas.vue'
+import Clientes from '@/views/Clientes/Clientes.vue'
+import Productos from '@/views/Productos/Productos.vue'
+import Facturas from '@/views/Facturas/Facturas.vue'
 
 const activeTab = ref('clientes')
 </script>

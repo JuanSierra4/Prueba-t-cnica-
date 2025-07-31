@@ -16,4 +16,8 @@ class Cliente extends Model
     {
         return $this->hasMany(Factura::class, 'id_cliente', 'id_cliente');
     }
+    // Define la llave primaria
+    protected $primaryKey = 'id_cliente';
+     // Desactiva created_at y updated_at
+    public $timestamps = false;
 }

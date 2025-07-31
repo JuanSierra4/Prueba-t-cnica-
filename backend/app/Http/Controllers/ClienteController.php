@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class ClienteController extends Controller
 {
@@ -12,8 +13,12 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes = Cliente::all();
-        return response()->json($clientes);
+        $clientes = Cliente::all()->map(function ($cliente) {
+        $cliente->fecha_nacimiento = Carbon::parse($cliente->fecha_nacimiento)->format('d/m/Y'); // Formatear la fecha
+        return $cliente;
+    });
+
+    return response()->json($clientes);
     }
 
     /**
@@ -29,7 +34,17 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cliente = new Cliente();
+        $cliente->nombre = $request->input('nombre');
+        $cliente->apellido = $request->input('apellido');
+        $cliente->direccion = $request->input('direccion');
+        $cliente->fecha_nacimiento = $request->input('fecha_nacimiento');
+        $cliente->telefono = $request->input('telefono');
+        $cliente->email = $request->input('email');
+        $cliente->categoria = $request->input('categoria');
+        $cliente->save();
+
+        return response()->json($cliente, 201);
     }
 
     /**
@@ -37,7 +52,7 @@ class ClienteController extends Controller
      */
     public function show(Cliente $cliente)
     {
-        //
+        return response()->json($cliente);
     }
 
     /**
@@ -53,7 +68,8 @@ class ClienteController extends Controller
      */
     public function update(Request $request, Cliente $cliente)
     {
-        //
+        $cliente->update($request->all());
+        return response()->json($cliente);
     }
 
     /**
@@ -61,6 +77,7 @@ class ClienteController extends Controller
      */
     public function destroy(Cliente $cliente)
     {
-        //
+        $cliente->delete();
+        return response()->json(null, 204);
     }
 }
