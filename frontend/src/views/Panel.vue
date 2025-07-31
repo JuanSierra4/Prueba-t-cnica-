@@ -34,7 +34,7 @@
         </li>
       </ul>
 
-      <div class="tab-content mt-5">
+      <div class="tab-content mt-2">
         <div v-if="activeTab === 'clientes'">
           <Clientes />
         </div>

@@ -12,7 +12,17 @@ class FacturaController extends Controller
      */
     public function index()
     {
-        
+        $facturas = Factura::join(
+            'clientes',
+            'facturas.id_cliente',
+            '=',
+            'clientes.id_cliente'
+        )->select(
+            'facturas.*',
+            'clientes.nombre as nombres_cliente',
+            'clientes.apellido as apellidos_cliente'
+        )->get();
+        return response()->json($facturas);
     }
 
     /**
