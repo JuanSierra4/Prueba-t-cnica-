@@ -36,7 +36,7 @@ Prueba tecnica/
 ```bash
 git clone https://github.com/JuanSierra4/Prueba-t-cnica-.git
 cd nombre-repo
-8
+
 
 ### 2. Configurar el Backend (Laravel)
 cd backend

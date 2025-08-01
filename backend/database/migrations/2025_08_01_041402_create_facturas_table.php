@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Crear la tabla de facturas
-        Schema::create('facturas', function (Blueprint $table) {
+       Schema::create('facturas', function (Blueprint $table) {
             $table->id('num_factura');
             $table->date('fecha');
 
-            $table->foreignId('id_cliente')->references('id_cliente')
-            ->on('clientes')->onDelete('cascade');
-            $table->foreign('id_producto')->references('id_producto')
-            ->on('productos')->onDelete('cascade');
+            $table->foreignId('id_cliente')->constrained('clientes', 'id_cliente')->onDelete('cascade');
+            $table->foreignId('id_producto')->constrained('productos', 'id_producto')->onDelete('cascade');
         });
     }
 
