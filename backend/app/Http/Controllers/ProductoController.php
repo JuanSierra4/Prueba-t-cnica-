@@ -50,7 +50,7 @@ class ProductoController extends Controller
      */
     public function show(Producto $producto)
     {
-        //
+        return response()->json($producto);
     }
 
     /**
@@ -66,7 +66,11 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
-        //
+        $producto->nombre = $request->input('nombre');
+        $producto->precio = $request->input('precio');
+        $producto->stock = $request->input('stock');
+        $producto->save();
+        return response()->json($producto);
     }
 
     /**

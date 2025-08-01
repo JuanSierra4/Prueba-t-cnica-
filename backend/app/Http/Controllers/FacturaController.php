@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Factura;
+use App\Models\Producto;
 use Illuminate\Http\Request;
 
 class FacturaController extends Controller
@@ -48,8 +49,30 @@ class FacturaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+        public function store(Request $request)
     {
+        // Validación básica (opcional pero recomendable)
+        $request->validate([
+            'id_cliente' => 'required|exists:clientes,id_cliente',
+            'id_producto' => 'required|exists:productos,id_producto',
+            'fecha' => 'required|date',
+        ]);
+
+        // Obtener el producto asociado
+        $producto = Producto::find($request->input('id_producto'));
+
+        // Verificar el stock
+        if ($producto->stock <= 0) {
+            return response()->json([
+                'message' => 'No hay stock disponible para este producto.'
+            ], 400);
+        }
+
+        // Restar 1 al stock
+        $producto->stock -= 1;
+        $producto->save();
+
+        // Crear la factura
         $factura = new Factura();
         $factura->id_cliente = $request->input('id_cliente');
         $factura->id_producto = $request->input('id_producto');

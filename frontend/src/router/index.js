@@ -11,6 +11,8 @@ import CrearFactura from '../views/Facturas/CrearFactura.vue'
 import EditarFactura from '../views/Facturas/EditarFactura.vue'
 // Crear producto
 import CrearProducto from '../views/Productos/CrearProducto.vue'
+// Editar producto
+import EditarProducto from '../views/Productos/EditarProducto.vue'
 const routes = [
   {
     path: '/',
@@ -41,6 +43,11 @@ const routes = [
     path: '/productos/nuevo',
     name: 'crear-producto',
     component: CrearProducto
+  },
+  {
+    path: '/productos/editar/:id',
+    name: 'editar-producto',
+    component: EditarProducto
   }
 ]
 

@@ -93,14 +93,19 @@ const crearFactura = async () => {
       showConfirmButton: false,
       timer: 1500
     })
-    router.push({ path: '/', query: { tab: 'facturas' } })
+    router.push({
+      path: '/',
+      query: {
+        tab: 'facturas'
+      }
+    })
   } catch (error) {
     console.error('Error al crear la factura:', error)
     // Alerta de error
     Swal.fire({
       icon: 'error',
       title: '¡Error!',
-      text: 'Hubo un problema al crear la factura: ' + error.message + '. Por favor, inténtalo de nuevo.',
+      text: error.response?.data?.message || 'Ocurrió un error inesperado al crear la factura.',
     })
   }
 }
