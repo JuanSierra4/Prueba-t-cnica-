@@ -48,7 +48,7 @@ Abre el archivo .env y asegúrate de tener configurado tu entorno de base de dat
 DB_DATABASE=prueba_tecnica
 DB_USERNAME=root
 DB_PASSWORD=tu_contraseña
-
+Recuerda crear tu mismo los registros
 No olvides crear el archivo .env en el backend, puedes crearlo con base en el archivo .env.example.
 
 Luego ejecuta las migraciones:
