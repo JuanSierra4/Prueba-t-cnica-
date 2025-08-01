@@ -187,7 +187,7 @@ const facturasPaginadas = computed(() => {
 const facturasFiltradas = computed(() => {
   let resultado = facturas.value
 
-  // 🔍 Filtro por búsqueda general
+  // Filtro por búsqueda general
   if (busqueda.value.trim() !== '') {
     const texto = busqueda.value.toLowerCase()
     resultado = resultado.filter(f =>
@@ -199,7 +199,7 @@ const facturasFiltradas = computed(() => {
     )
   }
 
-  // 🔍 Filtro por columnas específicas
+  //  Filtro por columnas específicas
   Object.entries(filtros.value).forEach(([campo, valor]) => {
     if (valor.trim() !== '') {
       resultado = resultado.filter(f =>
@@ -208,7 +208,7 @@ const facturasFiltradas = computed(() => {
     }
   })
 
-  // 🔃 Ordenamiento
+  //  Ordenamiento
   if (campoOrden.value) {
     resultado = resultado.slice().sort((a, b) => {
       const aVal = a[campoOrden.value]
