@@ -10,15 +10,18 @@ class Factura extends Model
     use HasFactory;
      protected $primaryKey = 'num_factura';
 
-    protected $fillable = ['fecha', 'id_cliente'];
+    protected $fillable = ['fecha', 'id_cliente','id_producto'];
 
     public function cliente()
     {
         return $this->belongsTo(Cliente::class, 'id_cliente', 'id_cliente');
     }
 
-    public function productos()
+    public function producto()
     {
-        return $this->belongsToMany(Producto::class, 'facturas_productos', 'factura_id', 'producto_id');
+        return $this->belongsTo(Producto::class, 'id_producto', 'id_producto');
     }
+
+    // Desactiva created_at y updated_at
+    public $timestamps = false;
 }

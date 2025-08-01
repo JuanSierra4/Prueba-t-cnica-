@@ -130,9 +130,14 @@
     const clientesFiltrados = computed(() => {
       const texto = busqueda.value.toLowerCase()
       return clientes.value.filter(c =>
+      c.id_cliente.toString().includes(texto) ||
         c.nombre.toLowerCase().includes(texto) ||
         c.apellido.toLowerCase().includes(texto) ||
-        c.email.toLowerCase().includes(texto)
+        c.direccion.toLowerCase().includes(texto) ||
+        c.fecha_nacimiento.toLowerCase().includes(texto) ||
+        c.telefono.toLowerCase().includes(texto) || 
+        c.email.toLowerCase().includes(texto) ||
+        c.categoria.toLowerCase().includes(texto)
       )
     })
 

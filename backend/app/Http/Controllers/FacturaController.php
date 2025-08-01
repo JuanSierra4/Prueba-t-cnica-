@@ -10,20 +10,32 @@ class FacturaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $facturas = Factura::join(
-            'clientes',
-            'facturas.id_cliente',
-            '=',
-            'clientes.id_cliente'
-        )->select(
+   public function index()
+{
+        $facturas = Factura::join('clientes', 'facturas.id_cliente', '=', 'clientes.id_cliente')
+        ->join('productos', 'facturas.id_producto', '=', 'productos.id_producto')
+        ->select(
             'facturas.*',
             'clientes.nombre as nombres_cliente',
-            'clientes.apellido as apellidos_cliente'
-        )->get();
-        return response()->json($facturas);
-    }
+            'clientes.apellido as apellidos_cliente',
+            'productos.nombre as nombre_producto',
+            'productos.precio as precio_producto'
+        )
+        ->get();
+
+    $facturas->transform(function ($factura) {
+        // Formato: $1.000.000
+        $factura->precio_producto_formateado = '$' . number_format($factura->precio_producto, 0, ',', '.');
+
+        // Formato de fecha: dd/mm/yyyy
+        $factura->fecha_formateada = \Carbon\Carbon::parse($factura->fecha)->format('d/m/Y');
+
+        return $factura;
+    });
+
+    return response()->json($facturas);
+}
+
 
     /**
      * Show the form for creating a new resource.
@@ -38,7 +50,13 @@ class FacturaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $factura = new Factura();
+        $factura->id_cliente = $request->input('id_cliente');
+        $factura->id_producto = $request->input('id_producto');
+        $factura->fecha = $request->input('fecha');
+        $factura->save();
+
+        return response()->json($factura, 201);
     }
 
     /**
@@ -46,7 +64,7 @@ class FacturaController extends Controller
      */
     public function show(Factura $factura)
     {
-        //
+        return response()->json($factura);
     }
 
     /**
@@ -62,7 +80,12 @@ class FacturaController extends Controller
      */
     public function update(Request $request, Factura $factura)
     {
-        //
+        $factura->id_cliente = $request->input('id_cliente');
+        $factura->id_producto = $request->input('id_producto');
+        $factura->fecha = $request->input('fecha');
+        $factura->save();
+
+        return response()->json(['message' => 'Factura actualizada correctamente.', 'factura' => $factura]);
     }
 
     /**
@@ -70,6 +93,7 @@ class FacturaController extends Controller
      */
     public function destroy(Factura $factura)
     {
-        //
+        $factura->delete();
+        return response()->json(['message' => 'Factura eliminada correctamente.']);
     }
 }

@@ -14,6 +14,8 @@ class Producto extends Model
 
     public function facturas()
     {
-        return $this->belongsToMany(Factura::class, 'facturas_productos', 'producto_id', 'factura_id');
-    }   
+        return $this->hasMany(Factura::class, 'id_producto');
+    }
+    // Desactiva created_at y updated_at
+    public $timestamps = false;
 }

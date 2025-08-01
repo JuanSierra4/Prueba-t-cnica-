@@ -12,7 +12,16 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        //
+        // Obtener todos los productos
+        $productos = Producto::all();
+
+        // Transformar los precios
+        $productos->transform(function ($producto) {
+            $producto->precio_formateado = '$' . number_format($producto->precio, 0, ',', '.');
+            return $producto;
+        });
+
+    return response()->json($productos);
     }
 
     /**
@@ -28,7 +37,12 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $producto = new Producto();
+        $producto->nombre = $request->input('nombre');
+        $producto->precio = $request->input('precio');
+        $producto->stock = $request->input('stock');
+        $producto->save();
+        return response()->json($producto);
     }
 
     /**
@@ -60,6 +74,7 @@ class ProductoController extends Controller
      */
     public function destroy(Producto $producto)
     {
-        //
+        $producto->delete();
+        return response()->json(null, 204); 
     }
 }

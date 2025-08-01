@@ -1,49 +1,54 @@
 <template>
   <div class="container mt-4">
-    <div class="card">
-      <div class="card-header">
-        <h4>Crear Nuevo Cliente</h4>
+    <div class="card shadow-sm">
+      <div class="card-header text-dark">
+        <h5 class="mb-0">Crear nuevo Cliente</h5>
       </div>
       <div class="card-body">
         <form @submit.prevent="crearCliente">
-          <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="nombre" v-model="cliente.nombre" required>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="nombre" v-model="cliente.nombre" required>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="apellido" class="form-label">Apellido</label>
+              <input type="text" class="form-control" id="apellido" v-model="cliente.apellido" required>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="direccion" class="form-label">Dirección</label>
+              <input type="text" class="form-control" id="direccion" v-model="cliente.direccion" required>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
+              <input type="date" class="form-control" id="fecha_nacimiento" v-model="cliente.fecha_nacimiento" required>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="telefono" class="form-label">Teléfono</label>
+              <input type="text" class="form-control" id="telefono" v-model="cliente.telefono" required>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" v-model="cliente.email" required>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="categoria" class="form-label">Categoría</label>
+              <input type="text" class="form-control" id="categoria" v-model="cliente.categoria" required>
+            </div>
           </div>
 
-          <div class="mb-3">
-            <label for="apellido" class="form-label">Apellido</label>
-            <input type="text" class="form-control" id="apellido" v-model="cliente.apellido" required>
-          </div>
-
-          <div class="mb-3">
-            <label for="direccion" class="form-label">Dirección</label>
-            <input type="text" class="form-control" id="direccion" v-model="cliente.direccion" required>
-          </div>
-
-          <div class="mb-3">
-            <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
-            <input type="date" class="form-control" id="fecha_nacimiento" v-model="cliente.fecha_nacimiento" required>
-          </div>
-
-          <div class="mb-3">
-            <label for="telefono" class="form-label">Teléfono</label>
-            <input type="text" class="form-control" id="telefono" v-model="cliente.telefono" required>
-          </div>
-
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" v-model="cliente.email" required>
-          </div>
-
-          <div class="mb-3">
-            <label for="categoria" class="form-label">Categoría</label>
-            <input type="text" class="form-control" id="categoria" v-model="cliente.categoria" required>
-          </div>
-          
           <div class="d-flex justify-content-end">
-            <button type="button" @click="Volver" class="btn btn-secondary me-2" title="Volver"><i class="fa-solid fa-angle-left"></i></button>
-            <button type="submit" class="btn btn-success" title="Guardar"><i class="fa-solid fa-floppy-disk"></i></button>
+            <button type="button" @click="Volver" class="btn btn-outline-secondary me-2" title="Volver">
+              <i class="fa-solid fa-angle-left"></i>
+            </button>
+            <button type="submit" class="btn btn-success" title="Guardar"><i class="fa-solid fa-floppy-disk"></i>
+            </button>
           </div>
         </form>
       </div>
@@ -107,6 +112,6 @@ const crearCliente = async () => {
 
 // Función para volver a la página anterior
 const Volver = () => {
-  router.back()
+  router.push({ path: '/', query: { tab: 'clientes' } })
 }
 </script>

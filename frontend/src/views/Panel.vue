@@ -50,12 +50,21 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted  } from 'vue'
+import { useRoute } from 'vue-router'
+
 import Clientes from '@/views/Clientes/Clientes.vue'
 import Productos from '@/views/Productos/Productos.vue'
 import Facturas from '@/views/Facturas/Facturas.vue'
 
-const activeTab = ref('clientes')
+const activeTab = ref('clientes') // valor por defecto
+const route = useRoute()
+
+onMounted(() => {
+  if (route.query.tab) {
+    activeTab.value = route.query.tab // corregido
+  }
+})
 </script>
 
 <style scoped>
