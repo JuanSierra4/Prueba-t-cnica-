@@ -265,6 +265,7 @@ const exportarExcel = () => {
   })
   saveAs(blob, 'facturas.xlsx')
 }
+// Exportar a PDF
 const exportarPDF = () => {
   const doc = new jsPDF()
 
